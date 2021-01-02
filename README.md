@@ -5,33 +5,24 @@
 A simple set of scripts (mainly scrapers for now) intended for aid in web CTFs. Find image sources (and alts), javascript sources and comments. 
 
 ## Usage
-  
-
-### Help menu
 
 ```bash
-python3 webctf.py -h
-```
-
-#### Output
-
-```
-usage: webctf.py [-h] [-c] [-sc] [-si] [-he [a]] [-a [a]] url
+usage: webctf [-h] [-c] [-sc] [-si] [-he [a]] [-a [a]] url
 
 positional arguments:
   url                   URL to fetch info from
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -c, --comments        Scrape for HTML comments on given website
-  -sc, --scripts        Scrape for script sources on given website
-  -si, --img            Scrape for all image sources on given website
+  -h, --help      show this help message and exit
+  -c, --comments  Scrape for HTML comments on given website
+  -sc, --scripts  Scrape for script sources on given website
+  -si, --img      Scrape for all image sources on given website
   -he [ a ], --headers [ a ]
-                        Displays response headers deemed important. To show
-                        all use '-he | --headers a'
+                  Displays response headers deemed important.
+                  To show all use '-he | --headers a'
   -a [ a ], --all [ a ]
-                        Use all options on given url. Runs with important
-                        headers. Use '-a | --all a' to show all headers
+                  Use all options on given url. Runs with important headers.
+                  Use '-a | --all a' to show all headers
 ```
 
 ### Getting response headers
@@ -97,7 +88,7 @@ SCRIPTS
 [+] 2 : /static/post-store.js
 ```
 
-### Gettint IMG src and alt
+### Getting IMG src and alt
 
 ```bash
 python3 webctf.py http://www.example.com -si or --img
@@ -198,27 +189,23 @@ alts:
 [+] 2 : No alt
 ```
 
-### Used packages
+## Requirements
 
 ```
+argparse
 bs4
 requests
-argparse
 ```
 
-#### Installing with pip
-
-```bash
-pip install -r requirements.txt
-```
-
-### Future plans
-
-I plan to implement a download function, to download the images, js files and so on. If you have any suggestions feel free to give them to me, 
-but please keep in mind that I am still a student :) 
-
-### Git clone 
+## Installation
 
 ```bash
 git clone https://github.com/xnomas/web-ctf-help
-``` 
+pip install -r requirements.txt
+pip install -e .
+```
+
+## Future plans
+
+I plan to implement a download function, to download the images, js files and so on. If you have any suggestions feel free to give them to me, 
+but please keep in mind that I am still a student :) 
