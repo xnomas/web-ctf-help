@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup, Comment
 import argparse 
 
-parser = argparse.ArgumentParser(prog="webctf.py")
+parser = argparse.ArgumentParser(prog="webctf")
 parser.add_argument("url", help="URL to fetch info from", type=str)
 parser.add_argument("-c", "--comments", help="Scrape for HTML comments on given website", action="store_true")
 parser.add_argument("-sc", "--scripts", help="Scrape for script sources on given website", action="store_true")
@@ -63,4 +63,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-	
