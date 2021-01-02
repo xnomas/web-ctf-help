@@ -1,12 +1,12 @@
 import requests
 
 class Headers:
-	def __init__(self, re, important_only):
+	def __init__(self, re, important_only: bool):
 		self.re = re
 		self.important_only = important_only
 		self.headers = self.get_headers(re, important_only)
 
-	def get_headers(self, re, important_only):
+	def get_headers(self, re, important_only: bool):
 		if important_only:
 			headers = { h:re.get(h) for h in re if is_important_header(h)}
 			return headers
