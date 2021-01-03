@@ -1,65 +1,98 @@
-#!/usr/bin/env python3
+import argparse
+import requests
+from bs4 import BeautifulSoup, Comment
+
+from __version__ import version
 
 from modules.comment_find import Comms
 from modules.script_source_find import Scripts
 from modules.img_source_find import Images
 from modules.headers_view import Headers
-import requests
-from bs4 import BeautifulSoup, Comment
-import argparse 
 
-parser = argparse.ArgumentParser(prog="webctf")
-parser.add_argument("url", help="URL to fetch info from", type=str)
-parser.add_argument("-c", "--comments", help="Scrape for HTML comments on given website", action="store_true")
-parser.add_argument("-sc", "--scripts", help="Scrape for script sources on given website", action="store_true")
-parser.add_argument("-si", "--img", help="Scrape for all image sources on given website", action="store_true")
-parser.add_argument("-he", "--headers", help="Displays response headers deemed important. To show all use '-he | --headers a'",
- 					nargs="?", const="i", type=str, metavar=" a ")
-parser.add_argument("-a", "--all", help="Use all options on given url. Runs with important headers. Use '-a | --all a' to show all headers",
-					 nargs="?", const="i", type=str, metavar=" a ")
-
-args = parser.parse_args()
 
 def main():
-	if args.url:
-		re = requests.get(args.url)
+    parser = argparse.ArgumentParser(
+        prog="webctf",
+        allow_abbrev=False,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version="%(prog)s " + version,
+    )
+    # required arguments
+    parser.add_argument(
+        "url",
+        help="URL of the target website",
+        type=str,
+    )
+    # optional arguments
+    parser.add_argument(
+        "--comments",
+        help="only display HTML comments",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--scripts",
+        help="only display script sources",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--images",
+        help="only display image sources",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--headers",
+        help="only display interesting response headers (combine with -f to display all)",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-f",
+        "--full",
+        help="enable full output for all options",
+        action="store_true",
+    )
 
-		if args.comments:
-			comments = Comms(re.text)
-			comments.print()
+    # get arguments
+    args = parser.parse_args()
+    settings = {
+        "comments": args.comments,
+        "headers": args.headers,
+        "images": args.images,
+        "scripts": args.scripts,
+    }
 
-		if args.scripts:
-			scripts = Scripts(re.text)
-			scripts.print()
+    # If no argument is entered we assume we want to display all information available.
+    for value in settings.values():
+        if value:
+            break
+    else:
+        # No argument is True, enable everything
+        for key in settings.keys():
+            settings[key] = True
 
-		if args.img:
-			images = Images(re.text)
-			images.print()
+    # get webpage
+    re = requests.get(args.url)
 
-		if args.headers == 'i':
-			header = Headers(re.headers, True) # True -> only important headers
-			header.print()
-		elif args.headers == 'a':
-			header = Headers(re.headers, False) # False -> all headers
-			header.print()
-
-		if args.all:
-			comments = Comms(re.text)
-			scripts = Scripts(re.text)
-			images = Images(re.text)
-
-			if args.all == "i": 
-				header = Headers(re.headers, True)
-			elif args.all == "a":
-				header = Headers(re.headers, False)
-
-			header.print()
-			comments.print()
-			scripts.print()
-			images.print()
-
-
+    # print results
+    if settings["comments"]:
+        comments = Comms(re.text)
+        comments.print()
+    if settings["scripts"]:
+        scripts = Scripts(re.text)
+        scripts.print()
+    if settings["images"]:
+        images = Images(re.text)
+    if settings["headers"]:
+        if args.full:
+            headers = Headers(re.headers, important_only=False)
+        else:
+            headers = Headers(re.headers, important_only=True)
+        headers.print()
 
 
 if __name__ == "__main__":
-	main()
+    main()
