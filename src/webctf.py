@@ -16,7 +16,7 @@ from modules.headers_view import Headers
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="webctf",
+        prog="webctf.py",
         allow_abbrev=False,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
