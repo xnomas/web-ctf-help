@@ -93,7 +93,3 @@ def main():
         else:
             headers = Headers(re.headers, important_only=True)
         headers.print()
-
-
-if __name__ == "__main__":
-    main()
