@@ -7,7 +7,7 @@ A simple set of scripts (mainly scrapers for now) intended for aid in web CTFs. 
 ## Usage
 
 ```bash
-usage: webctf.py [-h] [-v] [--comments] [--scripts] [--images] [--headers] [-f] url
+usage: webctf [-h] [-v] [--comments] [--scripts] [--images] [--headers] [-f] url
 
 positional arguments:
   url            URL of the target website
@@ -23,13 +23,13 @@ optional arguments:
 ```
 
 ```bash
-webctf.py https://example.com
+webctf https://example.com
 ```
 
 Only display HTML comments and script sources:
 
 ```bash
-webctf.py --comments --scripts https://example.com
+webctf --comments --scripts https://example.com
 ```
 ```
 =============
@@ -50,7 +50,7 @@ SCRIPTS
 Only display interesting headers:
 
 ```bash
-webctf.py --headers https://example.com
+webctf --headers https://example.com
 ```
 ```
 ===================
@@ -63,7 +63,7 @@ Server : Google Frontend
 Display all headers:
 
 ```bash
-webctf.py --headers -f https://example.com
+webctf --headers -f https://example.com
 ```
 ```
 =============
