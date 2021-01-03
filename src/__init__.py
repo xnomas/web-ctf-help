@@ -2,7 +2,7 @@ import argparse
 import requests
 from bs4 import BeautifulSoup, Comment
 
-from __version__ import version
+from __version__ import version  
 
 from modules.comment_find import Comms
 from modules.script_source_find import Scripts

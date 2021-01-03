@@ -26,7 +26,7 @@ optional arguments:
 webctf https://example.com
 ```
 
-Only display HTML commens and script sources:
+Only display HTML comments and script sources:
 
 ```bash
 webctf --comments --scripts https://example.com
