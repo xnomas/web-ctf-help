@@ -1,5 +1,9 @@
 import argparse
 import requests
+import sys
+
+sys.path.append('src/')
+
 from bs4 import BeautifulSoup, Comment
 
 from __version__ import version  
