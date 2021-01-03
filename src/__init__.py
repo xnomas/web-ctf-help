@@ -87,6 +87,7 @@ def main():
         scripts.print()
     if settings["images"]:
         images = Images(re.text)
+        images.print()
     if settings["headers"]:
         if args.full:
             headers = Headers(re.headers, important_only=False)
