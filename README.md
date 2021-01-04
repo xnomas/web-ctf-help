@@ -82,7 +82,7 @@ Alt-Svc : h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma
 Send a request with a cookie and only get comments
 
 ```bash
-webctf https://example.com --cookies "name1=value1;name2=value2" --comments
+webctf --cookies "name1=value1;name2=value2" --comments https://example.com 
 ```
 ```
 ==============
@@ -111,3 +111,7 @@ pip install -e .
 
 I plan to implement a download function, to download the images, js files and so on. If you have any suggestions feel free to give them to me, 
 but please keep in mind that I am still a student :) 
+
+## Thank you!
+
+Thank you to [sinus-x](https://github.com/sinus-x) for helping!
