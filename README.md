@@ -7,7 +7,7 @@ A simple set of scripts (mainly scrapers for now) intended for aid in web CTFs. 
 ## Usage
 
 ```bash
-usage: webctf [-h] [-v] [--comments] [--scripts] [--images] [--headers] [-f] url
+usage: webctf [-h] [-v] [--comments] [--scripts] [--images] [--headers] [--cookies COOKIES] [-f] url
 
 positional arguments:
   url            URL of the target website
@@ -19,6 +19,7 @@ optional arguments:
   --scripts      only display script sources (default: False)
   --images       only display image sources (default: False)
   --headers      only display interesting response headers (combine with -f to display all) (default: False)
+  --cookies COOKIES  add cookies to your request in the following format "name=value;name2=value2" (default: None)
   -f, --full     enable full output for all options (default: False)
 ```
 
@@ -77,6 +78,25 @@ Date : Fri, 01 Jan 2021 20:19:57 GMT
 Server : Google Frontend
 Content-Length : 2689
 Alt-Svc : h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+```
+Send a request with a cookie and only get comments
+
+```bash
+webctf https://example.com --cookies "name1=value1;name2=value2" --comments
+```
+```
+==============
+Using cookies:
+==============
+
+[+] name1 = value1
+[+] name2 = value2
+
+=============
+COMMENTS
+=============
+
+[+] 1 :   Internal game scripts/styles, mostly boring stuff
 ```
 
 ## Installation
