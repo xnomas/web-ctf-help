@@ -9,6 +9,7 @@ from modules.comment_find import Comms
 from modules.script_source_find import Scripts
 from modules.img_source_find import Images
 from modules.headers_view import Headers
+from modules.cookie_send import Cookies
 
 
 def main():
@@ -51,6 +52,11 @@ def main():
         action="store_true",
     )
     parser.add_argument(
+        "--cookies",
+        help='''add cookies to your request in the following format "name=value;name2=value2"''',
+        type=str,
+    )
+    parser.add_argument(
         "-f",
         "--full",
         help="enable full output for all options",
@@ -64,19 +70,27 @@ def main():
         "headers": args.headers,
         "images": args.images,
         "scripts": args.scripts,
+        "cookies": args.cookies,
     }
 
     # If no argument is entered we assume we want to display all information available.
     for value in settings.values():
-        if value:
+        if value and value != args.cookies:
             break
     else:
         # No argument is True, enable everything
         for key in settings.keys():
+            if key == "cookies" and settings[key] == None:
+                continue
             settings[key] = True
 
     # get webpage
-    re = requests.get(args.url)
+    if settings["cookies"]:
+        cookies = Cookies(args.cookies)
+        cookies.print()
+        re = requests.get(args.url, cookies.get_dict())
+    else:
+        re = requests.get(args.url)
 
     # print results
     if settings["comments"]:
@@ -94,3 +108,6 @@ def main():
         else:
             headers = Headers(re.headers, important_only=True)
         headers.print()
+    
+    print() # end with a new line
+
