@@ -88,7 +88,7 @@ def main():
     if settings["cookies"]:
         cookies = Cookies(args.cookies)
         cookies.print()
-        re = requests.get(args.url, cookies.get_dict())
+        re = requests.get(args.url, cookies=cookies.get_dict())
     else:
         re = requests.get(args.url)
 
