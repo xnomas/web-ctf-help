@@ -10,6 +10,7 @@ from modules.script_source_find import Scripts
 from modules.img_source_find import Images
 from modules.headers_view import Headers
 from modules.cookie_send import Cookies
+from modules.flag_find import Flag
 
 
 def main():
@@ -57,6 +58,11 @@ def main():
         type=str,
     )
     parser.add_argument(
+        "--flags",
+        help='''search for a flag hidden on the website in the following format "pattern", and will be searched as "pattern\{*\}"''',
+        type=str,
+    )
+    parser.add_argument(
         "-f",
         "--full",
         help="enable full output for all options",
@@ -71,16 +77,21 @@ def main():
         "images": args.images,
         "scripts": args.scripts,
         "cookies": args.cookies,
+        "flags" : args.flags,
+    }
+    non_default = {
+        "cookies" : args.cookies,
+        "flags" : args.flags,
     }
 
     # If no argument is entered we assume we want to display all information available.
     for value in settings.values():
-        if value and value != args.cookies:
+        if value and value not in non_default.values():
             break
     else:
         # No argument is True, enable everything
         for key in settings.keys():
-            if key == "cookies" and settings[key] == None:
+            if key in non_default.keys() and settings[key] == None:
                 continue
             settings[key] = True
 
@@ -96,12 +107,19 @@ def main():
     if settings["comments"]:
         comments = Comms(re.text)
         comments.print()
+    
     if settings["scripts"]:
         scripts = Scripts(re.text)
         scripts.print()
+    
     if settings["images"]:
         images = Images(re.text)
         images.print()
+    
+    if settings["flags"]:
+        flags = Flag(re.text, args.flags)
+        flags.print()
+
     if settings["headers"]:
         if args.full:
             headers = Headers(re.headers, important_only=False)
