@@ -7,7 +7,7 @@ A simple set of scripts (mainly scrapers for now) intended for aid in web CTFs. 
 ## Usage
 
 ```bash
-usage: webctf [-h] [-v] [--comments] [--scripts] [--images] [--headers] [--cookies COOKIES] [-f] url
+usage: webctf [-h] [-v] [--comments] [--scripts] [--images] [--headers] [--cookies COOKIES] [--flags FLAGS] [-f] url
 
 positional arguments:
   url            URL of the target website
@@ -20,6 +20,7 @@ optional arguments:
   --images       only display image sources (default: False)
   --headers      only display interesting response headers (combine with -f to display all) (default: False)
   --cookies COOKIES  add cookies to your request in the following format "name=value;name2=value2" (default: None)
+  --flags FLAGS      search for a flag hidden on the website in the following format "pattern", and will be searched as "pattern\{*\}" (default: None)
   -f, --full     enable full output for all options (default: False)
 ```
 
