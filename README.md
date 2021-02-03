@@ -103,9 +103,7 @@ COMMENTS
 ## Installation
 
 ```bash
-git clone https://github.com/xnomas/web-ctf-help
-pip install -r requirements.txt
-pip install -e .
+python3 -m pip install git+https://github.com/xnomas/web-ctf-help.git
 ```
 
 ## Future plans
