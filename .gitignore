@@ -1,4 +1,7 @@
+# Development
 **/__pycache__
 **/*.egg-info
+venv/
+# Build
 /dist/
 /build/

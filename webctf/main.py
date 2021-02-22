@@ -3,17 +3,16 @@ import requests
 
 from bs4 import BeautifulSoup, Comment
 
-from __version__ import version  
+from webctf import __version__
+from .modules.comment_find import Comms
+from .modules.script_source_find import Scripts
+from .modules.img_source_find import Images
+from .modules.headers_view import Headers
+from .modules.cookie_send import Cookies
+from .modules.flag_find import Flag
 
-from modules.comment_find import Comms
-from modules.script_source_find import Scripts
-from modules.img_source_find import Images
-from modules.headers_view import Headers
-from modules.cookie_send import Cookies
-from modules.flag_find import Flag
 
-
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="webctf",
         allow_abbrev=False,
@@ -23,7 +22,7 @@ def main():
         "-v",
         "--version",
         action="version",
-        version="%(prog)s " + version,
+        version="%(prog)s " + __version__,
     )
     # required arguments
     parser.add_argument(
@@ -77,11 +76,11 @@ def main():
         "images": args.images,
         "scripts": args.scripts,
         "cookies": args.cookies,
-        "flags" : args.flags,
+        "flags": args.flags,
     }
     non_default = {
-        "cookies" : args.cookies,
-        "flags" : args.flags,
+        "cookies": args.cookies,
+        "flags": args.flags,
     }
 
     # If no argument is entered we assume we want to display all information available.
@@ -107,15 +106,15 @@ def main():
     if settings["comments"]:
         comments = Comms(re.text)
         comments.print()
-    
+
     if settings["scripts"]:
         scripts = Scripts(re.text)
         scripts.print()
-    
+
     if settings["images"]:
         images = Images(re.text)
         images.print()
-    
+
     if settings["flags"]:
         flags = Flag(re.text, args.flags)
         flags.print()
@@ -126,6 +125,5 @@ def main():
         else:
             headers = Headers(re.headers, important_only=True)
         headers.print()
-    
-    print() # end with a new line
 
+    print()  # end with a new line
