@@ -87,12 +87,12 @@ def main(argv=None):
     for value in settings.values():
         if value and value not in non_default.values():
             break
-    else:
-        # No argument is True, enable everything
-        for key in settings.keys():
-            if key in non_default.keys() and settings[key] == None:
-                continue
-            settings[key] = True
+        else:
+            # No argument is True, enable everything
+            for key in settings.keys():
+                if key in non_default.keys() and settings[key] == None:
+                    continue
+                settings[key] = True
 
     # get webpage
     if settings["cookies"]:
