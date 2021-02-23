@@ -1,4 +1,4 @@
 """Module allowing for ``python -m webctf ...``."""
-from webctf.main import cli
+from webctf.main import main
 
-cli.main()
+main.main()
